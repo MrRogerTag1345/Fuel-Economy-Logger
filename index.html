@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<!-- Declaring the page language as English.-->
+<html lang="en">
+
+<!-- Code for webpage and gets approiated with device.-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuel Economy Logger</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<!-- Code Block.-->
+<body>
+    <!-- Title for Website.-->
+    <header>
+        <h1>Fuel Economy Logger</h1>
+    </header>
+
+    <!-- Navagation to different Sections in Website.-->
+    <nav>
+        <ul>
+            <li><a href="index.html">Log Entry</a></li>
+            <li><a href="history.html">Recorded History</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </nav>
+
+    <!-- Form that listens to users result and stores results.-->
+    <main>
+        <section class="log-entry">
+            <h2>Log Fuel Entry</h2>
+            <h3>Works for Metric Units Only </h3>
+            <form action="submit.php" method="POST">
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" required><br>
+
+                <label for="od">Kilometres Driven:</label>
+                <input type="number" step="any" id="od" name="od" required><br>
+                
+                <label for="liters">Liters of Fuel:</label>
+                <input type="number" step="any" id="liters" name="liters" required><br>
+
+                <label for="price">Price on Pump (e.g 1.859):</label>
+                <input type="number" step="any" id="price" name="price"><br>
+                
+                <button type="submit" id="btn">Submit</button>
+            </form>
+    </main>
+
+    <div id="msg">
+        <pre></pre>
+    </div>
+
+    <script type="text/javascript">
+        let trips = [];
+    
+        const log_trip = (ev) => {
+            ev.preventDefault();
+            let trip = {
+                id: Date.now(),
+                date: document.getElementById('date').value,
+                kilometres: document.getElementById('od').value,
+                liters: document.getElementById('liters').value,
+                efficiency: (document.getElementById('liters').value * 100) / document.getElementById('od').value,
+                price: document.getElementById('price').value,
+                dollar_per_kilometres: ((((document.getElementById('liters').value * 100) / document.getElementById('od').value) * document.getElementById('price').value) / 100)
+            };
+            trips.push(trip);
+            document.forms[0].reset();
+    
+            // Save to console.
+            /*
+            console.warn('added', { trips });
+            let pre = document.querySelector('#msg pre');
+            pre.textContent = '\n' + JSON.stringify(trips, null, 2);
+            */
+            localStorage.setItem('tripsData', JSON.stringify(trips));
+            window.location.href = 'history.html';
+        };
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('btn').addEventListener('click', log_trip);
+        });
+    </script>
+
+    <!-- Footer.-->
+    <footer>
+        <p>&copy; 2023 Fuel Economy Logger</p>
+    </footer>
+
+
+</body>
+</html>
+
+

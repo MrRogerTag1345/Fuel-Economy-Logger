@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuel Economy History</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Fuel Economy History</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="index.html">Log Entry</a></li>
+            <li><a href="history.html">Recorded History</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <div id="tripListContainer">
+            <ul id="tripList"></ul>
+        </div>
+    </main>
+    
+    <script>
+        //removes data from localStorage
+        const tripsData = JSON.parse(localStorage.getItem('tripsData'));
+        localStorage.removeItem('tripsData');
+
+        const tripList = document.getElementById('tripList');
+
+        // Print to the webpage
+        if (Array.isArray(tripsData) && tripsData.length > 0) {
+            tripsData.forEach((trip, index) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `Date - ${trip.date} | Kilometres Driven - ${trip.kilometres}km | Liters of Fuel - ${trip.liters}L | Efficiency - ${trip.efficiency.toFixed(2)}L/100km | Price on Pump - ${trip.price} | Dollar per Kilometres - $${trip.dollar_per_kilometres.toFixed(5)}/km.`;
+                tripList.appendChild(listItem);
+            });
+        } else {
+            tripList.textContent = 'No trip data available.';
+        }
+    </script>
+    
+    <footer>
+        <p>&copy; 2023 Fuel Economy Logger</p>
+    </footer>
+</body>
+</html>
