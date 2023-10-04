@@ -8,3 +8,23 @@ the information I would need.
 ## Web Based Application
 The website, has been designed for users that have set their computer's primary theme to Dark. The code for this website has mainly been done in, HTML with imbedded
 Javascript. While using CSS for the styles and web-page visuals. 
+
+## Website Layout:
+
+### Home Page:
+![Home Page / Welcome Page](Images/Page_Layout/image1.1.png)
+
+### Trip Display:
+![Trip Display](Images/Page_Layout/image2.png)
+
+### About:
+![About](Images/Page_Layout/image3.png)
+
+## Page in Use:
+
+
+### User Input:
+![Input](Images/Page_Use/image4.png)
+
+### Results:
+![Results](Images/Page_Use/image5.png)
